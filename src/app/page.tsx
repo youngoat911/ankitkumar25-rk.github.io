@@ -9,6 +9,7 @@ import About from "@/components/sections/About";
 import TechStack from "@/components/sections/TechStack";
 import Projects from "@/components/sections/Projects";
 import Experience from "@/components/sections/Experience";
+import Blog from "@/components/sections/Blog";
 import Contact from "@/components/sections/Contact";
 import Footer from "@/components/sections/Footer";
 import Loader from "@/components/ui/Loader";
@@ -56,6 +57,9 @@ export default function Home() {
 
             {/* 6. Experience timeline */}
             <Experience />
+
+            {/* 7. Blog / Engineering Field Notes */}
+            <Blog />
 
             {/* 8. Contact */}
             <Contact />

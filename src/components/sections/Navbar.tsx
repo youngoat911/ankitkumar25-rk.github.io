@@ -8,6 +8,7 @@ const navItems = [
   { name: "Projects", href: "#projects", hasDropdown: true },
   { name: "Tech Stack", href: "#tech-stack" },
   { name: "Experience", href: "#experience" },
+  { name: "Blog", href: "#blog" },
   { name: "Contact", href: "#contact" },
 ];
 
@@ -28,7 +29,7 @@ export default function Navbar() {
       requestAnimationFrame(() => {
         setScrolled(window.scrollY > 20);
 
-        const sections = ["about", "projects", "tech-stack", "experience", "contact"];
+        const sections = ["about", "projects", "tech-stack", "experience", "blog", "contact"];
         const current = sections.find((section) => {
           const el = document.getElementById(section);
           if (!el) return false;
