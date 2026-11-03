@@ -1,262 +1,201 @@
 @import "tailwindcss";
 
 @theme {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+  --color-paper: var(--paper);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-line-dark: var(--line-dark);
+  --color-accent: var(--accent);
+  --color-action: var(--action);
+  --color-action-hover: var(--action-hover);
+  --color-card-bg: var(--card-bg);
+  --color-tab-bg: var(--tab-bg);
+  --color-border: var(--line);
+  --color-background: var(--paper);
+  --color-foreground: var(--ink);
+
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-
-  /* Dynamic theme variables */
-  --color-white: var(--text-white);
-  --color-neutral-900: var(--neutral-900);
-  --color-neutral-950: var(--neutral-950);
-  --color-neutral-800: var(--neutral-800);
-  --color-neutral-400: var(--text-neutral-400);
-  --color-neutral-300: var(--text-neutral-300);
-  --color-neutral-200: var(--text-neutral-200);
-  
-  --color-amber-400: var(--amber-400);
-  --color-amber-950: var(--amber-950);
-  --color-emerald-400: var(--emerald-400);
-  --color-emerald-950: var(--emerald-950);
-  --color-violet-400: var(--violet-400);
-  --color-violet-950: var(--violet-950);
-  --color-indigo-400: var(--indigo-400);
-  --color-indigo-950: var(--indigo-950);
-  --color-fuchsia-400: var(--fuchsia-400);
-  --color-fuchsia-950: var(--fuchsia-950);
 }
 
 :root {
-  /* Earthy dark village theme (default) */
-  --background: #040804; /* Deep forest black */
-  --foreground: #f4f6f0; /* Off-white linen */
-  
-  --color-gold-500: #d4af37; /* Harvest gold */
-  --color-amber-500: #f59e0b; /* Warm amber */
-  --color-emerald-500: #10b981; /* Fresh grass green */
-  --color-earth-700: #78350f; /* Warm mud/bronze */
-  
-  --font-geist-sans: "Geist Sans", sans-serif;
-  --font-geist-mono: "Geist Mono", monospace;
+  /* Matte Technical Dark Mode (Default) */
+  --paper: #111311;
+  --ink: #f4f3ef;
+  --muted: #8e9188;
+  --muted-light: #575a52;
+  --line: #272a25;
+  --line-dark: #373b33;
+  --accent: #f59e0b;
+  --accent-ink: #f4f3ef;
+  --action: #f4f3ef;
+  --action-hover: #e2e0d8;
+  --action-text: #111311;
+  --card-bg: #161815;
+  --tab-bg: #1c1f1a;
+  --tab-active: #282c25;
+  --code-bg: #0b0c0a;
 
-  /* Theme mappings for dark mode */
-  --text-white: #ffffff;
-  --neutral-900: #171717;
-  --neutral-950: #0a0a0a;
-  --neutral-800: #262626;
-  --text-neutral-400: #a3a3a3;
-  --text-neutral-300: #d4d4d8;
-  --text-neutral-200: #e5e7eb;
-  
-  --amber-400: #fbbf24;
-  --amber-950: #451a03;
-  --emerald-400: #34d399;
-  --emerald-950: #022c22;
-  --violet-400: #a78bfa;
-  --violet-950: #2e1065;
-  --indigo-400: #818cf8;
-  --indigo-950: #1e1b4b;
-  --fuchsia-400: #f472b6;
-  --fuchsia-950: #4a044e;
+  --canvas: 1440px;
+  --gutter: clamp(20px, 4.5vw, 72px);
+  --nav-height: 72px;
 }
 
 html.light {
-  /* Earthy light village theme */
-  --background: #f7f9f5; /* Warm off-white, light linen */
-  --foreground: #141a14; /* Deep forest green-black */
+  /* Warm Editorial Paper Light Mode (Exact Yogi Arif Widodo Palette) */
+  --paper: #faf9f6;
+  --ink: #20231f;
+  --muted: #62645f;
+  --muted-light: #b7b7b7;
+  --line: #d6d4cd;
+  --line-dark: #c2bfb5;
+  --accent: #20231f;
+  --accent-ink: #20231f;
+  --action: #20231f;
+  --action-hover: #353833;
+  --action-text: #faf9f6;
+  --card-bg: #ffffff;
+  --tab-bg: #f0eee8;
+  --tab-active: #e4e1d7;
+  --code-bg: #1b1e1a;
+}
 
-  --text-white: #111827; /* maps dark text to elements that had text-white */
-  --neutral-900: #e5e7eb; /* maps light card bg */
-  --neutral-950: #f3f4f6; /* maps light section bg */
-  --neutral-800: #9ca3af; /* maps light border (medium gray, higher visibility) */
-  --text-neutral-400: #4b5563; /* maps darker grey to neutral-400 */
-  --text-neutral-300: #374151; /* maps darker grey to neutral-300 */
-  --text-neutral-200: #1f2937; /* maps even darker grey to neutral-200 */
-  
-  --amber-400: #b45309;
-  --amber-950: #fef3c7;
-  --emerald-400: #047857;
-  --emerald-950: #86efac; /* maps visible light emerald border/bg */
-  --violet-400: #7c3aed;
-  --violet-950: #ede9fe;
-  --indigo-400: #4f46e5;
-  --indigo-950: #e0e7ff;
-  --fuchsia-400: #c026d3;
-  --fuchsia-950: #fae8ff;
+* {
+  box-sizing: border-box;
 }
 
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 80px;
+  scroll-padding-top: var(--nav-height);
   overflow-x: hidden;
 }
 
 body {
-  background-color: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-geist-sans);
+  margin: 0;
+  background-color: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-geist-sans), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   overflow-x: hidden;
   position: relative;
-  -webkit-text-size-adjust: 100%; /* Prevent font scaling on mobile */
-  padding-left: env(safe-area-inset-left);
-  padding-right: env(safe-area-inset-right);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-/* Universal box-sizing */
-*, *::before, *::after {
-  box-sizing: border-box;
+/* Custom Editorial Typography & Grid Helpers */
+.font-pixel {
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
 }
 
-/* Prevent overflow from images/videos */
-img, video, canvas, svg {
-  max-width: 100%;
+.section-code, .case-number, .eyebrow {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  text-transform: uppercase;
 }
 
-/* Custom Scrollbar - Earthy tones */
+.display-title {
+  font-size: clamp(3.2rem, 7vw, 7rem);
+  font-weight: 900;
+  line-height: 0.95;
+  letter-spacing: -0.075em;
+}
+
+.display-title span.dot {
+  color: var(--accent);
+}
+
+/* Buttons matching Yogi's precise geometry */
+.yogi-button {
+  display: inline-flex;
+  min-height: 48px;
+  padding: 0 22px;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  border: 1px solid currentColor;
+  border-radius: 2px;
+  font-size: 0.85rem;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 0.18s ease, background-color 0.18s ease, color 0.18s ease, border-color 0.18s ease;
+}
+
+.yogi-button:hover {
+  transform: translateY(-2px);
+}
+
+.yogi-button-primary {
+  border-color: var(--action);
+  background-color: var(--action);
+  color: var(--action-text);
+}
+
+.yogi-button-primary:hover {
+  border-color: var(--action-hover);
+  background-color: var(--action-hover);
+}
+
+.yogi-button-secondary {
+  border-color: var(--line-dark);
+  background-color: transparent;
+  color: var(--ink);
+}
+
+.yogi-button-secondary:hover {
+  border-color: var(--ink);
+  background-color: var(--ink);
+  color: var(--action-text);
+}
+
+/* Editorial Signal Corner on Avatar */
+.signal-corner {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 48px;
+  height: 48px;
+  border-top: 1px solid var(--muted);
+  border-right: 1px solid var(--muted);
+  pointer-events: none;
+}
+
+.signal-corner-bl {
+  position: absolute;
+  bottom: 16px;
+  left: 16px;
+  width: 48px;
+  height: 48px;
+  border-bottom: 1px solid var(--muted);
+  border-left: 1px solid var(--muted);
+  pointer-events: none;
+}
+
+/* Custom Scrollbar */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #020402;
+  background: var(--paper);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #064e3b; /* Deep green */
-  border-radius: 9999px;
+  background: var(--line-dark);
+  border-radius: 0px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #047857;
+  background: var(--muted);
 }
 
-/* Selection Highlight */
+/* Selection */
 ::selection {
-  background: rgba(212, 175, 55, 0.25); /* Gold tint */
-  color: #ffffff;
-}
-
-/* Glow effect utilities */
-.glow-text-gold {
-  text-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
-}
-
-.glow-text-green {
-  text-shadow: 0 0 20px rgba(16, 185, 129, 0.4);
-}
-
-.glow-box-gold {
-  box-shadow: 0 0 30px rgba(212, 175, 55, 0.12);
-}
-
-.glow-box-emerald {
-  box-shadow: 0 0 30px rgba(16, 185, 129, 0.12);
-}
-
-/* Equalizer Bars Animation */
-@keyframes eq-pulse {
-  0%, 100% {
-    transform: scaleY(0.3);
-  }
-  50% {
-    transform: scaleY(1);
-  }
-}
-
-.eq-bar {
-  animation: eq-pulse 1.2s ease-in-out infinite;
-  transform-origin: bottom;
-}
-
-/* Custom backgrounds */
-.bg-grain {
-  background-image: radial-gradient(rgba(212, 175, 55, 0.05) 1px, transparent 0);
-  background-size: 24px 24px;
-}
-
-/* ─── Portfolio Navbar Light Mode Styling ────────────────────────────────────── */
-html.light .portfolio-navbar {
-  background-color: rgba(255, 255, 255, 0.82) !important;
-  border-color: rgba(229, 231, 235, 0.8) !important;
-  box-shadow: 0 12px 30px -10px rgba(0, 0, 0, 0.06) !important;
-}
-
-html.light .portfolio-navbar .logo-text {
-  background-image: linear-gradient(to right, #111827, #4b5563) !important;
-  color: transparent !important;
-  -webkit-background-clip: text !important;
-  background-clip: text !important;
-}
-
-html.light .portfolio-navbar .nav-link {
-  color: #4b5563 !important;
-}
-
-html.light .portfolio-navbar .nav-link:hover {
-  color: #111827 !important;
-}
-
-html.light .portfolio-navbar .nav-link.active {
-  color: #111827 !important;
-  font-weight: 600 !important;
-}
-
-html.light .portfolio-navbar .icon-button {
-  border-color: rgba(229, 231, 235, 0.9) !important;
-  background-color: rgba(243, 244, 246, 0.6) !important;
-  color: #4b5563 !important;
-}
-
-html.light .portfolio-navbar .icon-button:hover {
-  border-color: rgba(209, 213, 219, 0.9) !important;
-  background-color: rgba(243, 244, 246, 0.95) !important;
-  color: #111827 !important;
-}
-
-html.light .portfolio-navbar .cta-button {
-  background-color: #111827 !important;
-  color: #ffffff !important;
-}
-
-html.light .portfolio-navbar .cta-button:hover {
-  background-color: #1f2937 !important;
-}
-
-html.light .portfolio-navbar .projects-dropdown {
-  background-color: rgba(255, 255, 255, 0.96) !important;
-  border-color: rgba(229, 231, 235, 0.85) !important;
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.05), 0 10px 10px -5px rgba(0, 0, 0, 0.02) !important;
-}
-
-html.light .portfolio-navbar .projects-dropdown h4 {
-  color: #4b5563 !important;
-}
-
-html.light .portfolio-navbar .projects-dropdown .dropdown-item {
-  color: #111827 !important;
-}
-
-html.light .portfolio-navbar .projects-dropdown .dropdown-item:hover {
-  background-color: rgba(243, 244, 246, 0.7) !important;
-}
-
-html.light .portfolio-navbar .projects-dropdown .dropdown-desc {
-  color: #6b7280 !important;
-}
-
-html.light .mobile-menu-overlay {
-  background-color: rgba(255, 255, 255, 0.98) !important;
-  border-color: rgba(229, 231, 235, 0.9) !important;
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.06) !important;
-}
-
-html.light .mobile-menu-overlay .mobile-nav-link {
-  color: #4b5563 !important;
-}
-
-html.light .mobile-menu-overlay .mobile-nav-link:hover,
-html.light .mobile-menu-overlay .mobile-nav-link.active {
-  color: #111827 !important;
-  font-weight: 600 !important;
+  background: var(--ink);
+  color: var(--paper);
 }
