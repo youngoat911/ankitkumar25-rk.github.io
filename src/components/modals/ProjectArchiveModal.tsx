@@ -50,7 +50,7 @@ const archiveProjects = [
     description: "Small repositories documenting ongoing practice with databases, Node.js, C programming, and numerical computing.",
   },
   {
-    year: "2024",
+    year: "2025",
     title: "Boot-Up Hackathon",
     category: "Competition / 2nd Place",
     tech: ["Full-Stack", "Rapid Prototyping"],
