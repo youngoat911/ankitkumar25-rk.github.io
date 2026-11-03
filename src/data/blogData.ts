@@ -1,282 +1,189 @@
+export interface BlogSection {
+  heading?: string;
+  content: string;
+  image?: {
+    src: string;
+    alt: string;
+    caption?: string;
+  };
+  codeBlock?: {
+    language: string;
+    code: string;
+    caption?: string;
+  };
+  callout?: {
+    type: "tip" | "quote" | "note";
+    text: string;
+    author?: string;
+  };
+}
+
 export interface BlogPost {
   slug: string;
   title: string;
-  subtitle: string;
+  subtitle?: string;
   summary: string;
-  category: "Philosophy & Roots" | "Systems & Python" | "Security & Backend" | "Creative Web";
+  category: string;
   date: string;
   readTime: string;
-  views: string;
+  views?: string;
   featured?: boolean;
   tags: string[];
-  spotlightColor: string;
-  borderColor: string;
-  badgeVariant: "amber" | "emerald" | "violet" | "indigo" | "fuchsia";
-  sections: {
-    heading?: string;
-    content: string; // Paragraphs
-    codeBlock?: {
-      language: string;
-      code: string;
-      caption?: string;
-    };
-    callout?: {
-      type: "tip" | "quote" | "note";
-      text: string;
-      author?: string;
-    };
-  }[];
+  sections: BlogSection[];
 }
 
 export const blogPosts: BlogPost[] = [
   {
-    slug: "plowing-fields-writing-systems",
-    title: "Plowing Fields, Writing Systems: How Rural Rajasthan Built My Engineering Discipline",
-    subtitle: "Why waking up at 4 AM to irrigate mustard fields taught me more about distributed reliability and clean architecture than any tutorial.",
-    summary: "Growing up in Udaipurwati, Jhunjhunu, machinery wasn't a metaphor. When a 5911 tractor stalls in wet soil, you don't panic or write duct tape fixes; you trace the fuel line, bleed the air, and respect the machine. Here is how that work ethic shapes the way I build software.",
-    category: "Philosophy & Roots",
-    date: "Oct 24, 2026",
-    readTime: "5 min read",
-    views: "1.4k reads",
+    slug: "how-uber-actually-works-system-design",
+    title: "How Uber Actually Works: The Complete System Design Breakdown",
+    subtitle: "Understanding how Uber matches millions of riders with drivers in under 30 milliseconds — from H3 hexagons to Redis, Kafka, Cassandra, and PostgreSQL.",
+    summary: "Behind every ride request is a distributed system handling 1.25 million GPS updates per second across 70+ countries. Here is the deep-dive breakdown of Uber's architecture, geospatial hexagonal indexing (H3), multi-database tiering, and low-level ride matching engines.",
+    category: "System Design",
+    date: "Sep 27, 2026",
+    readTime: "14 min read",
+    views: "DevLup Labs Session",
     featured: true,
-    tags: ["Life", "Farming", "IIT Jodhpur", "Mindset", "Engineering"],
-    spotlightColor: "rgba(245, 158, 11, 0.12)",
-    borderColor: "rgba(245, 158, 11, 0.35)",
-    badgeVariant: "amber",
+    tags: ["System Design", "Distributed Systems", "Geospatial", "Architecture", "DevLup Labs"],
     sections: [
       {
-        heading: "The 4 AM Shift in Udaipurwati",
-        content: "Before I ever touched a terminal or knew what an API endpoint was, my mornings began in Udaipurwati, Jhunjhunu. When you have crops in the field during harvest season, you don't sleep in because you feel tired. Water turns at 4:30 AM regardless of your mood. If a pump fails or an irrigation channel breaks, 10 hours of crops get ruined.\n\nIn our household, there were no computer scientists. No senior devs to look over your shoulder. You learned by observing the physical laws of nature: water flows where gravity pulls it, engines die when air chokes them, and crops grow only if you put in the daily, unglamorous groundwork.",
+        heading: "Introduction: The Problem That Started Everything",
+        content: "Imagine you're sitting in your apartment at 9 PM. You open the Uber app and tap “Request Ride.” Within seconds, a driver nearby accepts your request and starts heading towards you.\n\nSounds simple, right?\n\nBehind those few seconds, thousands of distributed nodes work in unison:\n1. The client app sends your GPS coordinates (latitude and longitude) to the edge gateway.\n2. Ingestion servers identify candidate drivers in your spatial vicinity.\n3. The matching engine computes dynamic driver scores based on ETA, ratings, and acceptance history.\n4. A WebSocket dispatch offer is broadcast to the top-ranked driver.\n5. The driver receives an interactive heads-up display notification to accept or decline.\n\nAll of this happens in less than 30 milliseconds — 1/30th of a single second. Worldwide, Uber processes this pipeline across 15 million daily rides, absorbing 1.25 million continuous GPS updates every second.",
         callout: {
-          type: "quote",
-          text: "Never forget your roots, never trade your soul for temporary noise. When you stand firm on your soil, no storm can shake your ground.",
-          author: "Inspired by Sidhu Moosewala & Bhagat Singh"
+          type: "note",
+          text: "Documented during DevLup Labs' System Design Sessions at IIT Jodhpur, breaking down real-world high-throughput distributed systems.",
+          author: "DevLup Labs System Design Session"
+        },
+        image: {
+          src: "/blog/uber-system-design-lld.jpg",
+          alt: "Ride-hailing System: Low-level Design Core Components and Relationships",
+          caption: "Low-level system architecture: Payment Services & Strategies, Ride Management, and User Role abstractions."
         }
       },
       {
-        heading: "Tractor Engines and Distributed Systems",
-        content: "Around here, everyone knows the HMT 5911 — a machine built like a tank. It doesn't have fancy touchscreens or gentle sensors. It has heavy cast-iron cylinders, mechanical diesel injection, and high-torque gears. When something goes wrong with a 5911, there is no magic button. You have to understand how each mechanical subsystem connects to the next.\n\nWhen I first started studying operating systems and distributed backends at IIT Jodhpur, I had an epiphany: reliable software architecture is identical to heavy farming machinery. Both require modular isolation, predictable failure modes, and zero unhandled backpressure. If one queue overflows, the entire pipeline chokes — just like fuel injectors clogged with silt.",
+        heading: "Uber's Scale in Numbers",
+        content: "To appreciate why standard architectures fail, look at the operational figures:\n\n• Active Drivers Worldwide: 5–6 million\n• Active Riders: 100+ million\n• Daily Completed Rides: 15 million\n• Operating Countries: 70+\n• End-to-End Match Latency: < 30 milliseconds\n• Driver Location Telemetry: 1.25 million GPS updates / sec\n\nWith 5 million concurrent drivers broadcasting telemetric coordinates every 4 seconds:\n5,000,000 ÷ 4 = 1,250,000 writes/second.\n\nA single relational instance (MySQL or PostgreSQL) comfortably processes roughly 10,000 writes per second before disk I/O bottlenecks and write-ahead log lock contention freeze the system. Uber's ingestion throughput exceeds standard relational limits by 125x.",
         codeBlock: {
-          language: "bash",
-          caption: "Physical diagnostic routine vs. Software debug cycle",
-          code: `# Mechanical Diesel Inspection
-1. Verify fuel reservoir & shutoff valve
-2. Loosen secondary filter bleed screw
-3. Pump manual priming lever until bubble-free stream emerges
-4. Crank engine: 100% combustion recovered
-
-# Software Service Inspection
-1. Check process daemon (psutil / systemd status)
-2. Trace circular buffer & disk I/O metrics
-3. Isolate corrupted transaction batch
-4. Self-healing restart with zero data drop`
+          language: "text",
+          caption: "System Evolution Milestones",
+          code: `2009–2010: San Francisco inception. Monolithic Python service on LAMP stack.
+2012: Global expansion. Nearest-neighbor SQL distance queries become compute bottlenecks.
+2014–2015: Database saturation. Traditional spatial indexes fail under write load.
+2016–Present: Custom geospatial indexing via H3 hexagons & multi-tiered polyglot storage.`
         }
       },
       {
-        heading: "The Boot-Up Hackathon Pivot at IIT Jodhpur",
-        content: "Getting into IIT Jodhpur was a massive turning point. But the real spark happened during my first semester when DevLup Labs organized the Boot-Up Hackathon. I had barely written a full web app back then. We worked 36 hours straight, fueled by chai and sheer curiosity, and ended up placing 2nd.\n\nThat was the day I realized that coding isn't about memorizing trivia or repeating boilerplate. It's about problem-solving under pressure. Since then, whether building PhotowalaGift's real-time checkout or architecting telemetry pipelines for CogniOS, I carry that exact same persistence into every commit."
+        heading: "The Core Problem: Why Traditional Spatial Queries Fail",
+        content: "When a passenger hails a car, the engine must identify all active drivers within a localized bounding box. In traditional SQL databases, this is handled via bounding coordinate filters:\n\nSearching millions of active driver rows with floating-point coordinate range checks triggers table scans or B-Tree index traversal overhead that takes 2 to 5 seconds under high concurrency. Uber requires candidate retrieval in under 2ms.",
+        codeBlock: {
+          language: "sql",
+          caption: "Traditional spatial query (Too slow for 1.25M updates/sec)",
+          code: `SELECT * FROM drivers 
+WHERE latitude BETWEEN (rider_lat - 0.05) AND (rider_lat + 0.05)
+  AND longitude BETWEEN (rider_lon - 0.05) AND (rider_lon + 0.05);`
+        }
       },
       {
-        heading: "Zero Shortcuts: The Code Philosophy",
-        content: "A lot of modern web development has become bloated — hundred-megabyte bundles for simple landing pages, copy-pasting answers without understanding execution contexts, and skipping error handling until production crashes.\n\nMy philosophy is simple: write code you can stand behind. Know why every dependency exists in your package.json. Treat system resources with respect. And above all, never pretend to be something you're not."
-      }
-    ]
-  },
-  {
-    slug: "cognios-telemetry-pipeline",
-    title: "Building CogniOS: Real-Time Telemetry & Anomaly Detection Under Resource Constraints",
-    subtitle: "How we engineered a 4-layer telemetry daemon using psutil, rolling SQLite buffers, and Isolation Forest during DevLup Labs' Summer of Code.",
-    summary: "Standard system monitors either miss micro-spikes or drown your disk in gigabytes of metrics. For CogniOS, we designed a dual-tier storage strategy with a rolling 30-minute BlackBox window and lightweight Z-score triggers.",
-    category: "Systems & Python",
-    date: "Oct 08, 2026",
-    readTime: "7 min read",
-    views: "980 reads",
-    featured: false,
-    tags: ["Python", "psutil", "SQLite", "DevLup Labs", "Machine Learning"],
-    spotlightColor: "rgba(16, 185, 129, 0.12)",
-    borderColor: "rgba(16, 185, 129, 0.35)",
-    badgeVariant: "emerald",
-    sections: [
-      {
-        heading: "Why Existing APMs Stumble on Lightweight Edge Devices",
-        content: "When monitoring edge Linux servers and development workstations, traditional APM agents (like Datadog or Prometheus node-exporter) come with heavy resource taxations. They often consume several hundred megabytes of RAM and generate steady CPU load just observing the machine.\n\nAt DevLup Labs (IIT Jodhpur), the goal for CogniOS was ambitious: create an open-source, ultra-low-overhead telemetry engine that collects high-resolution system vitals and flags anomalies locally without sending telemetry across the wire."
+        heading: "The Geospatial Solution: Divide the City Into a Grid",
+        content: "Instead of searching all global drivers, we discretize the surface of the Earth into partitioned geometric cells. Each driver is indexed only inside the cell they physically occupy.\n\nWhen a passenger requests a ride, the matching engine only inspects the passenger's immediate cell and its neighboring rings, reducing candidate evaluation from 5,000,000 drivers down to 50–100 local vehicles.",
+        image: {
+          src: "/blog/uber-grid-search.jpg",
+          alt: "Divide the City Into a Grid: Spatial Cell Partitioning",
+          caption: "Spatial partitioning: Locate rider → Search candidate cells → Rank local drivers."
+        }
       },
       {
-        heading: "Architecture of the 4 Telemetry Layers",
-        content: "To maintain modularity and avoid kernel bottlenecks, we separated metric acquisition into four discrete sampling layers:\n\n1. Layer 1 (CPU & Core Thermal): Per-core utilization percentages, context switches, load averages, and interrupt frequencies.\n2. Layer 2 (Memory & Virtual Subsystems): Resident Set Size (RSS), page faults, cache eviction ratios, and swap pressure.\n3. Layer 3 (Disk I/O & Block Devices): Read/write IOPS, queue latency, throughput MB/s, and sector saturation.\n4. Layer 4 (Network Sockets & Process Sinks): TCP socket states (ESTABLISHED, TIME_WAIT), packet drop rates, and per-process memory footprints.",
+        heading: "Why Hexagons? (Squares vs. Circles vs. Hexagons)",
+        content: "The geometry of the grid partition dictates search consistency, boundary conditions, and algorithmic complexity. Three primary shapes were evaluated:\n\n1. Square Grids: If a point sits in the center of a square, adjacent neighbors are 1 unit away, but diagonal neighbors are √2 ≈ 1.41 units away. This distance distortion produces artificial spatial bias in driver search radius calculations.\n\n2. Circle Packing: Circles have uniform radial symmetry, but cannot tessellate a two-dimensional plane. Overlapping circles cause duplicate driver allocations, while disjoint circles leave blind gaps where drivers become invisible.\n\n3. Regular Hexagons (H3): A regular hexagon possesses exactly 6 adjacent neighbors, every single one equidistant from the centroid. Hexagons tile the Euclidean and spherical plane with zero coverage gaps and minimal perimeter-to-area distortion.",
+        image: {
+          src: "/blog/uber-square-grid.jpg",
+          alt: "Square Grid: Unequal Neighbor Distance",
+          caption: "Square grids suffer from distance asymmetry: 1 unit orthogonal vs. 1.41 units diagonal."
+        }
+      },
+      {
+        content: "Circular partitions leave unindexed blind spots, while hexagons form a seamless continuous mathematical tessellation across the entire surface of the globe.",
+        image: {
+          src: "/blog/uber-circle-grid.jpg",
+          alt: "Circle-based search coverage gaps",
+          caption: "Circles fail to tile the plane, creating coverage gaps where drivers fall through cells."
+        }
+      },
+      {
+        content: "Because every adjacent hexagon centroid is perfectly equidistant, radiating outward across k-rings (k=1, k=2, k=3) guarantees uniform distance circles without distortion.",
+        image: {
+          src: "/blog/uber-hexagons-h3.jpg",
+          alt: "Hexagonal tessellation with 6 equidistant neighbors",
+          caption: "Regular hexagon tessellation: exactly 6 neighbors, identical centroid distances, zero gaps."
+        }
+      },
+      {
+        heading: "How Uber Implements This: The H3 Hierarchical System",
+        content: "Uber open-sourced their geographic engine under H3 (Hierarchical Hexagonal Spatial Index). H3 partitions the Earth using icosahedron projections with 16 discrete resolution tiers:\n\n• Level 0: Global continent-scale cells\n• Level 5: Metropolitan areas\n• Level 10: ~5 km² areas (used for dynamic surge pricing calculations)\n• Level 13: ~200 m² areas (used for rider-driver proximity matching)\n• Level 15: ~1 m² areas (sub-meter telemetric accuracy)\n\nEach resolution level is nested hierarchically. A single 64-bit integer index encodes the entire spatial path down to the meter.",
         codeBlock: {
           language: "python",
-          caption: "Core polling snippet from CogniOS Telemetry Collector",
-          code: `import psutil
-import time
+          caption: "H3 Hexagonal Lookup & k-Ring Expansion",
+          code: `import h3
 
-class SystemTelemetryDaemon:
-    def __init__(self, interval=1.0):
-        self.interval = interval
+# 1. Convert latitude & longitude into a 64-bit H3 Level 13 index
+rider_coords = (28.5944, 77.3068)
+rider_hex = h3.geo_to_h3(rider_coords[0], rider_coords[1], resolution=13)
+# Output: "8d1d8d8d8d8d8"
 
-    def collect_layer1_cpu(self):
-        """Collects per-core CPU and frequency counters with minimal overhead."""
-        return {
-            "timestamp": time.time(),
-            "cpu_percent": psutil.cpu_percent(interval=None, percpu=True),
-            "cpu_stats": psutil.cpu_stats()._asdict(),
-            "load_avg": psutil.getloadavg()
-        }
+# 2. Retrieve the center hexagon + 6 surrounding ring neighbors (7 total)
+search_cells = h3.k_ring(rider_hex, k=1)
 
-    def collect_layer2_memory(self):
-        """Captures memory saturation without triggering disk swap."""
-        mem = psutil.virtual_memory()
-        return {
-            "total": mem.total,
-            "available": mem.available,
-            "percent": mem.percent,
-            "used": mem.used
-        }`
+# 3. Query in-memory cache exclusively for drivers inside these 7 cells
+candidate_drivers = []
+for cell_id in search_cells:
+    candidate_drivers.extend(redis_client.hgetall(f"active_drivers:{cell_id}"))`
         }
       },
       {
-        heading: "The BlackBox SQLite Circular Window Pattern",
-        content: "One of our key architectural innovations was the dual-database design. Rather than writing every single 1-second sample to a permanent database, we created `blackbox.db`.\n\n`blackbox.db` holds a sliding 30-minute high-frequency window in a WAL-mode SQLite database. An asynchronous pruning thread purges records older than 1,800 seconds. Meanwhile, downsampled 1-minute summaries are flushed to `cognios_telemetry.db`.\n\nIf an anomaly is triggered (such as a memory leak slope or a sudden I/O freeze), the daemon dumps the high-frequency BlackBox snapshot so developers can inspect exactly what occurred leading up to the failure.",
+        heading: "The 4-Tier Database Architecture",
+        content: "Uber operates a polyglot persistence architecture, assigning each workload to the storage engine optimized for its data access pattern:\n\n1. Redis (In-Memory Fast Layer):\nStores real-time driver coordinates keyed by H3 hexagon ID. Sub-millisecond latency. Backed by a 30-second TTL so dead batteries or network dropouts automatically expire ghost vehicles.\n\n2. Apache Cassandra (Distributed Time-Series History):\nStores immutable breadcrumb traces for 3 to 7 years. Cassandra handles linear write scaling at 1.25M writes/second across partitioned SSTables, powering fare recalculations, route reviews, and dispute resolutions.\n\n3. PostgreSQL (ACID Financial Core):\nManages riders, drivers, corporate billing, and transactional ledger payments. Guarantees strict Atomicity and Isolation so riders are never double-charged.\n\n4. Apache Kafka (Distributed Buffer Shock Absorber):\nIngests raw telemetry streams from millions of concurrent mobile devices. Decouples fast HTTP ingestion gateways from disk writes, smoothing post-event demand spikes.",
         callout: {
           type: "tip",
-          text: "Using SQLite WAL (Write-Ahead Logging) mode allows simultaneous non-blocking concurrent reads while our daemon flushes metric vectors every 500ms."
+          text: "Never force a single database to handle high-write telemetry and strict financial ACID ledgers simultaneously. Separation of concerns is paramount.",
+          author: "DevLup Labs Core Takeaway"
         }
       },
       {
-        heading: "Phase 1 (Z-Score & Slope) to Phase 2 (Isolation Forest)",
-        content: "For anomaly detection, we phased our approach. Simple rule-based thresholds fail because what looks like high CPU on an idle server is completely normal during compilation. We implemented a sliding-window Z-Score alongside a first-order rate-of-change (slope) detector.\n\nIn Phase 2, we integrated Scikit-learn's Isolation Forest on multi-dimensional metric vectors (CPU + I/O Wait + Swap Rate) to catch subtle runaway processes that stay within standard threshold limits but demonstrate anomalous covariance."
-      }
-    ]
-  },
-  {
-    slug: "paseto-over-jwt-photowalagift",
-    title: "Why We Swapped JWT for PASETO v4 in Production for PhotowalaGift",
-    subtitle: "Addressing algorithm confusion attacks, stateless token revocations, and secure session management on a live e-commerce platform.",
-    summary: "JWT has been the default choice for web auth for over a decade, but its cipher agility and 'alg': 'none' footguns make it perilous. When building PhotowalaGift's admin and customer portals, we switched to PASETO v4 Local tokens.",
-    category: "Security & Backend",
-    date: "Sep 15, 2026",
-    readTime: "6 min read",
-    views: "1.2k reads",
-    featured: false,
-    tags: ["Security", "PASETO", "Node.js", "PostgreSQL", "Production"],
-    spotlightColor: "rgba(139, 92, 246, 0.12)",
-    borderColor: "rgba(139, 92, 246, 0.35)",
-    badgeVariant: "violet",
-    sections: [
-      {
-        heading: "The Problem with JOSE / JWT Cipher Agility",
-        content: "When launching PhotowalaGift, we handled real customer orders, Razorpay payment webhooks, and an administrative dashboard where sensitive customer photographs and order logs lived. Security wasn't something we could treat as an afterthought.\n\nJSON Web Tokens (JWT) suffer from a fundamental cryptographic design defect known as 'cipher agility'. The header of a JWT allows the token itself to specify which algorithm the server should use to verify it (e.g. `HS256`, `RS256`, or even `none`). Over the years, countless CVEs have arisen from developers failing to validate the algorithm header, allowing malicious actors to forge arbitrary admin claims."
-      },
-      {
-        heading: "PASETO: Platform-Agnostic Security Tokens Explained",
-        content: "PASETO (Platform-Agnostic Security Tokens) solves this by removing cipher agility entirely. You choose a version and purpose, and the underlying cryptography is hardcoded to modern, vetted primitives:\n\n• Version 4 Local: Uses XChaCha20-Poly1305 authenticated symmetric encryption.\n• Version 4 Public: Uses Ed25519 digital signatures.\n\nThere is no header negotiation. The server knows exactly which cipher it uses, making algorithm confusion attacks impossible.",
+        heading: "The 9-Step Lifecycle of a Ride",
+        content: "When a trip is requested, data propagates across all subsystems in milliseconds:\n\nStep 1: Driver's mobile phone transmits GPS telemetry every 4 seconds.\nStep 2: Ingestion worker converts coordinates to a Level 13 H3 index (`geo_to_h3`).\nStep 3: Coordinates write to Redis with a 30s TTL (`HSET active_drivers:<hex_id> <driver_id>`).\nStep 4: Location packet streams to Kafka topic `location-updates` for async Cassandra persistence.\nStep 5: Rider taps “Request Ride”. Server converts rider position to H3 hex.\nStep 6: Matching engine expands `k_ring(rider_hex, k=1)` (7 hexagons), fetches candidate drivers from Redis, ranks them by ETA, ratings, and vehicle tier, and broadcasts a WebSocket offer.\nStep 7: Driver accepts. PostgreSQL creates trip entity with ACID transaction lock.\nStep 8: Driver location is streamed to rider's client over WebSocket connection at 60 FPS.\nStep 9: Trip arrives at destination. Fare is computed, settled via payment gateway, and archival trace is committed to Cassandra.",
         codeBlock: {
-          language: "typescript",
-          caption: "Encrypting and Decrypting PASETO v4 Tokens in Node.js",
-          code: `import { V4 } from "paseto";
-import crypto from "crypto";
+          language: "text",
+          caption: "Architecture Data Flow Pipeline",
+          code: `[Driver Device GPS] (every 4s)
+        │
+        ├──► [Redis Cache] ────► [Matching Engine: k-Ring Search] (<2ms)
+        │
+        └──► [Kafka Topic] ────► [Cassandra Cluster] (3-7 Yr Audit History)
 
-// 32-byte symmetric key stored securely in environment
-const SYMMETRIC_KEY = Buffer.from(process.env.PASETO_KEY!, "hex");
-
-export async function createSessionToken(userId: string, role: string) {
-  return await V4.encrypt(
-    {
-      sub: userId,
-      role: role,
-      iat: new Date().toISOString(),
-      exp: "2h" // Auto-validated expiration
-    },
-    SYMMETRIC_KEY
-  );
-}
-
-export async function verifySessionToken(token: string) {
-  try {
-    const payload = await V4.decrypt(token, SYMMETRIC_KEY);
-    return payload;
-  } catch (err) {
-    throw new Error("Invalid or expired session token");
-  }
-}`
+[Rider Request] ─────► [Matching Engine] ─────► [Dispatch WebSocket]
+                                 │
+                                 └──► [PostgreSQL] (ACID Trips & Ledger)`
         }
       },
       {
-        heading: "Handling High-Value Admin Actions & Revocation",
-        content: "Pure stateless tokens have one catch: how do you revoke an active token if an account is compromised? In PhotowalaGift, we implemented a hybrid model.\n\nCustomer browse sessions are fully stateless with a short 1-hour expiration. For administrative actions (price changes, refunds, inventory bulk updates), we check the token's issued-at timestamp against a `last_password_reset` or `token_version` column in PostgreSQL.\n\nThis gives us the extreme performance of stateless verification for 99% of requests, with instant revocation capabilities whenever an admin logs out or alters credentials."
+        heading: "Surge Pricing & High-Density Spikes",
+        content: "Surge pricing dynamically balances supply and demand. Rather than calculating city-wide surges, Uber executes demand-to-supply ratio scans on Level 10 hexagons (~5 km²):\n\nIf demand in a specific Level 10 hexagon exceeds available supply (e.g., stadium concert conclusion), the surge multiplier automatically climbs to incentivize nearby drivers to migrate.\n\nLevel 10 is chosen over Level 13 because a 200m cell changes too erratically, whereas a 5km cluster creates stable economic heatmaps."
       },
       {
-        heading: "Key Takeaways for Full-Stack Developers",
-        content: "1. Stop using default JWT configurations blindly in production.\n2. Never trust headers sent from the client to determine verification algorithms.\n3. PASETO simplifies backend code by turning cryptographic decisions into safe defaults."
-      }
-    ]
-  },
-  {
-    slug: "optimizing-threejs-nextjs-framer",
-    title: "Taming the 3D Canvas: 60FPS Scroll Animations with Three.js & Framer Motion",
-    subtitle: "How we made an interactive 3D tractor scroll smoothly across desktop and mobile devices without burning battery life.",
-    summary: "Integrating WebGL 3D scenes with DOM scroll libraries often leads to stutter, jank, and battery drain. Here's our playbook on buffer geometry reuse, RAF throttled event listeners, and seamless light/dark shader adaptations.",
-    category: "Creative Web",
-    date: "Aug 29, 2026",
-    readTime: "5 min read",
-    views: "1.6k reads",
-    featured: false,
-    tags: ["Three.js", "WebGL", "Framer Motion", "Next.js", "Performance"],
-    spotlightColor: "rgba(59, 130, 246, 0.12)",
-    borderColor: "rgba(59, 130, 246, 0.35)",
-    badgeVariant: "indigo",
-    sections: [
-      {
-        heading: "The Challenge: Scroll-Driven 3D Without Layout Jank",
-        content: "On my portfolio site, one of the signature features is an interactive 3D Tractor scene that rotates, drives, and illuminates its headlights as the visitor scrolls through the story.\n\nHowever, rendering a 3D scene in sync with window scroll often creates a vicious cycle: scroll events fire on the main thread, trigger recalculations, desync the requestAnimationFrame loop, and cause severe stutter on mid-range Android devices and laptops running on battery."
-      },
-      {
-        heading: "Decoupling Scroll Progress from Three.js Render Loop",
-        content: "The biggest mistake is updating 3D transformations directly inside a `window.onscroll` handler. Scroll events fire at arbitrary, un-synchronized intervals that don't match the monitor's display refresh rate.\n\nInstead, we decouple them completely:\n1. The scroll listener merely stores a normalized float `targetScroll` between 0.0 and 1.0.\n2. The Three.js render loop runs smoothly on its own requestAnimationFrame and applies a lerp (linear interpolation) smoothing formula to catch up to `targetScroll`.",
-        codeBlock: {
-          language: "javascript",
-          caption: "Lerp smoothing inside Three.js RAF loop",
-          code: `let currentProgress = 0;
-let targetProgress = 0;
-
-window.addEventListener("scroll", () => {
-  const scrollY = window.scrollY;
-  const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
-  targetProgress = Math.min(Math.max(scrollY / maxScroll, 0), 1);
-}, { passive: true });
-
-function animate() {
-  requestAnimationFrame(animate);
-
-  // Smooth easing: 10% step towards target per frame
-  currentProgress += (targetProgress - currentProgress) * 0.1;
-
-  if (tractorGroup) {
-    tractorGroup.rotation.y = currentProgress * Math.PI * 2;
-    tractorGroup.position.z = Math.sin(currentProgress * Math.PI) * 4;
-  }
-
-  renderer.render(scene, camera);
-}`
+        heading: "Boundary Handling, Edge Cases & Industry Comparison",
+        content: "Real-world engineering requires handling edge anomalies:\n\n• Boundary Drivers: If a driver sits 5 meters away across an H3 cell boundary, a single cell query misses them. The matching engine always searches the 1st ring (7 cells). If fewer than 5 drivers are found, it dynamically widens search radius to ring 2 (19 cells) or ring 3 (37 cells).\n\n• Network Disconnections: If a mobile driver enters a tunnel, Redis TTL auto-purges their active status after 30 seconds. Upon reconnecting, the client issues a clean heartbeat without stale ghost states.\n\nAcross the industry, location-first architectures have adopted similar paradigms:\n• Google Maps uses S2 Geometry (Hilbert space-filling curve).\n• Tinder utilizes Geohashing strings (e.g., \"u4pruydqq\").\n• Zomato & DoorDash leverage H3 hexagons for restaurant dispatch clustering.",
+        callout: {
+          type: "quote",
+          text: "Every engineering decision at scale is about choosing the right data structure for the physical constraint you are solving.",
+          author: "IIT Jodhpur System Design Note"
         }
-      },
-      {
-        heading: "Memory Management & Geometry Disposal",
-        content: "In Next.js, client-side route changes and component re-renders can easily leak GPU memory if WebGL contexts aren't cleanly pruned. If you mount and unmount a Three.js canvas three times without calling `.dispose()` on geometries, textures, and renderers, the browser tab will crash with WebGL context loss.\n\nWe implemented a comprehensive disposal helper in our `useEffect` cleanup return to ensure zero orphaned buffer allocations."
-      },
-      {
-        heading: "Adapting to Light & Dark Modes",
-        content: "Most 3D websites only work in pitch-dark themes. For this site, we created dynamic directional light temperatures: cool emerald-tinted moonlight in dark mode, and warm, golden Rajasthani morning sunlight in light mode, driven by the DOM class observer."
       }
     ]
   }
 ];
 
-export const blogCategories = [
+export const blogCategories: string[] = [
   "All",
-  "Philosophy & Roots",
-  "Systems & Python",
-  "Security & Backend",
-  "Creative Web"
-] as const;
-
+  "System Design",
+  "Distributed Systems",
+  "Engineering"
+];
