@@ -101,13 +101,6 @@ export default function Contact() {
                 <ArrowUpRight className="h-4 w-4" />
               </a>
 
-              <a
-                href="tel:+919772609535"
-                className="yogi-button yogi-button-secondary w-full justify-between text-xs uppercase font-bold"
-              >
-                <span>Phone: +91 97726 09535</span>
-                <ArrowUpRight className="h-4 w-4" />
-              </a>
             </div>
 
             <div className="p-6 border border-[var(--line)] bg-[var(--tab-bg)] text-xs font-mono space-y-2">
@@ -210,7 +203,7 @@ export default function Contact() {
           </span>
           <div className="flex flex-wrap items-center gap-6">
             <a
-              href="https://github.com/ankitkumar25-rk"
+              href="https://github.com/youngoat911"
               target="_blank"
               rel="noopener noreferrer"
               className="hover:text-amber-500 transition-colors font-bold flex items-center gap-1"
