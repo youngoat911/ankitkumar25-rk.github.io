@@ -1,73 +1,43 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import React from "react";
+import ScrollProgress from "@/components/ui/ScrollProgress";
 import Navbar from "@/components/sections/Navbar";
 import Hero from "@/components/sections/Hero";
-import TractorScene from "@/components/sections/TractorScene";
-import About from "@/components/sections/About";
-import TechStack from "@/components/sections/TechStack";
 import Projects from "@/components/sections/Projects";
-import Experience from "@/components/sections/Experience";
+import Expertise from "@/components/sections/Expertise";
+import Background from "@/components/sections/Background";
 import Blog from "@/components/sections/Blog";
 import Contact from "@/components/sections/Contact";
 import Footer from "@/components/sections/Footer";
-import Loader from "@/components/ui/Loader";
 
 export default function Home() {
-  const [isLoading, setIsLoading] = useState(true);
-
-  // Theme is handled by the blocking inline script in layout.tsx — no useEffect needed here.
-
-  useEffect(() => {
-    document.body.style.overflow = isLoading ? "hidden" : "unset";
-    return () => { document.body.style.overflow = "unset"; };
-  }, [isLoading]);
-
   return (
-    <>
-      <AnimatePresence mode="wait">
-        {isLoading && <Loader onComplete={() => setIsLoading(false)} />}
-      </AnimatePresence>
+    <div className="flex flex-col min-h-screen bg-[var(--paper)] text-[var(--ink)] transition-colors duration-150">
+      <ScrollProgress />
+      <Navbar />
 
-      {!isLoading && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.8 }}
-          className="flex flex-col min-h-screen"
-        >
-          <Navbar />
+      <main className="flex-grow">
+        {/* 01 / Player profile */}
+        <Hero />
 
-          <main className="flex-grow">
-            {/* 1. Intro + profile photo */}
-            <Hero />
+        {/* 02 / Project log */}
+        <Projects />
 
-            {/* 2. 3D Tractor scroll animation section */}
-            <TractorScene />
+        {/* 03 / Skill set */}
+        <Expertise />
 
-            {/* 3. About — personal story */}
-            <About />
+        {/* 04 / Background */}
+        <Background />
 
-            {/* 5. Projects */}
-            <Projects />
+        {/* 05 / Field notes */}
+        <Blog />
 
-            {/* Tech Stack */}
-            <TechStack />
+        {/* 06 / Start a conversation */}
+        <Contact />
+      </main>
 
-            {/* 6. Experience timeline */}
-            <Experience />
-
-            {/* 7. Blog / Engineering Field Notes */}
-            <Blog />
-
-            {/* 8. Contact */}
-            <Contact />
-          </main>
-
-          <Footer />
-        </motion.div>
-      )}
-    </>
+      <Footer />
+    </div>
   );
 }

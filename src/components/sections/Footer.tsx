@@ -1,8 +1,6 @@
 "use client";
 
 import React from "react";
-import { ArrowUp } from "lucide-react";
-import { motion } from "framer-motion";
 
 export default function Footer() {
   const scrollToTop = () => {
@@ -10,34 +8,27 @@ export default function Footer() {
   };
 
   return (
-    <footer className="border-t border-neutral-900 bg-neutral-950/40 py-12">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 md:px-12 flex flex-col md:flex-row items-center justify-between gap-6">
-        
-        {/* Branding / Info */}
-        <div className="flex flex-col items-center md:items-start gap-1">
-          <span className="text-sm font-semibold text-white">Ankit Kumar</span>
-          <span className="text-xs text-neutral-500">
-            Portfolio Website. Built with Next.js, Tailwind v4, & Framer Motion.
-          </span>
+    <footer className="w-full bg-[var(--paper)] text-[var(--ink)] py-12 border-t border-[var(--line)]">
+      <div className="mx-auto max-w-[1440px] px-4 sm:px-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 text-xs font-mono">
+        <div>
+          <strong className="text-sm font-black text-[var(--ink)]">
+            Ankit Kumar<span className="text-[var(--accent)]">.</span>
+          </strong>
+          <p className="text-[var(--muted)] mt-0.5">
+            Software Engineer · IIT Jodhpur &amp; Udaipurwati, Rajasthan
+          </p>
         </div>
 
-        {/* Back to Top */}
-        <motion.button
+        <p className="text-[var(--muted)] max-w-md">
+          &copy; {new Date().getFullYear()} Ankit Kumar. Handcrafted with Next.js &amp; Tailwind CSS. Built with patience, discipline &amp; zero shortcuts.
+        </p>
+
+        <button
           onClick={scrollToTop}
-          whileHover={{ y: -3 }}
-          whileTap={{ scale: 0.95 }}
-          className="flex items-center gap-2 text-xs font-semibold text-neutral-400 hover:text-white transition-colors cursor-pointer focus:outline-none"
+          className="text-[var(--ink)] hover:text-amber-500 font-bold transition-colors cursor-pointer"
         >
-          <span>Back to Top</span>
-          <div className="flex h-8 w-8 items-center justify-center rounded-lg border border-neutral-850 bg-neutral-950/60 text-neutral-400 hover:text-white">
-            <ArrowUp className="h-4 w-4" />
-          </div>
-        </motion.button>
-
-        {/* Copyright */}
-        <div className="text-xs text-neutral-500 md:text-right">
-          &copy; {new Date().getFullYear()} Ankit. All rights reserved.
-        </div>
+          Back to top ↑
+        </button>
       </div>
     </footer>
   );
