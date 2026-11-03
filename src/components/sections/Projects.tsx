@@ -6,6 +6,15 @@ import ProjectArchiveModal from "@/components/modals/ProjectArchiveModal";
 
 const projects = [
   {
+    name: "PhotowalaGift",
+    category: "E-Commerce · Personalized Gifts",
+    description: "A comprehensive e-commerce platform for premium gifts, trophies, and mementos, with a customer storefront, admin dashboard, and Express API.",
+    highlights: ["Product browsing, custom orders, and secure checkout", "Dedicated customer storefront and admin dashboard", "Production site: photowalagift.online"],
+    tech: "React · Node.js · Express · PostgreSQL",
+    repo: "https://github.com/youngoat911/Photowalagift",
+    live: "https://photowalagift.online",
+  },
+  {
     name: "Inventory",
     category: "Gymkhana Equipment Management",
     description: "Full-stack inventory platform for managing equipment, borrowers, transfers, audits, maintenance, and operational alerts.",
