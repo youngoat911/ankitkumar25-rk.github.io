@@ -197,6 +197,18 @@ export default function BlogReaderModal({ post, onClose, onSelectPost }: BlogRea
               ))}
             </div>
 
+            {post.sourceUrl && (
+              <a
+                href={post.sourceUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 text-xs font-mono font-bold uppercase tracking-wider text-[var(--muted)] hover:text-[var(--ink)] transition-colors"
+              >
+                <ExternalLink className="h-3.5 w-3.5" />
+                Read original on Medium
+              </a>
+            )}
+
             {/* Article Sections */}
             <div className="space-y-8 text-[var(--ink)] leading-relaxed text-sm sm:text-base">
               {post.sections.map((section, sIdx) => (
@@ -295,7 +307,7 @@ export default function BlogReaderModal({ post, onClose, onSelectPost }: BlogRea
               <div className="p-6 border border-[var(--line)] bg-[var(--card-bg)] flex flex-col sm:flex-row items-center sm:items-start gap-5">
                 <div className="relative h-16 w-16 shrink-0">
                   <Image
-                    src="/profile.png"
+                    src="/profile.jpeg"
                     alt="Ankit Kumar"
                     width={64}
                     height={64}
@@ -305,14 +317,14 @@ export default function BlogReaderModal({ post, onClose, onSelectPost }: BlogRea
                 <div className="space-y-1.5 text-center sm:text-left flex-grow">
                   <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2 justify-center sm:justify-start">
                     <h3 className="text-base font-black text-[var(--ink)]">Ankit Kumar</h3>
-                    <span className="text-xs text-amber-500 font-mono">@ankitkumar25-rk</span>
+                    <span className="text-xs text-amber-500 font-mono">@youngoat911</span>
                   </div>
                   <p className="text-xs text-[var(--muted)] leading-relaxed">
-                    Full-stack developer from Udaipurwati, Jhunjhunu · B.Tech at IIT Jodhpur. Building high-performance systems with village roots and zero shortcuts.
+                    IIT Jodhpur student building practical products across AI, web platforms, developer tools, IoT, and Linux systems.
                   </p>
                   <div className="pt-2 flex items-center justify-center sm:justify-start gap-4 text-xs font-mono font-bold">
                     <a
-                      href="https://github.com/ankitkumar25-rk"
+                      href="https://github.com/youngoat911"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="inline-flex items-center gap-1 text-[var(--muted)] hover:text-[var(--ink)] transition-colors"

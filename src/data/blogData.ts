@@ -27,12 +27,96 @@ export interface BlogPost {
   date: string;
   readTime: string;
   views?: string;
+  sourceUrl?: string;
   featured?: boolean;
   tags: string[];
   sections: BlogSection[];
 }
 
 export const blogPosts: BlogPost[] = [
+  {
+    slug: "kde-development-environment-fedora-kde-builder",
+    title: "How I Set Up a KDE Development Environment on Fedora",
+    subtitle: "A beginner-friendly walkthrough of setting up kde-builder, compiling KCalc from source, and recovering from a network interruption.",
+    summary: "I wanted to contribute to KDE, but first needed to build an app locally. Here’s how I set up kde-builder on Fedora, built KCalc and worked through a clone failure along the way.",
+    category: "Engineering",
+    date: "Oct 7, 2026",
+    readTime: "6 min read",
+    views: "Originally published on Medium",
+    sourceUrl: "https://medium.com/@ankitgia336/how-i-set-up-a-kde-development-environment-on-fedora-and-built-my-first-kde-app-from-source-8219cb04daa3",
+    featured: true,
+    tags: ["KDE", "Fedora", "Linux", "Open Source", "kde-builder"],
+    sections: [
+      {
+        heading: "Starting with a build, not a bug fix",
+        content: "I wanted to contribute to KDE, the community behind Plasma, Dolphin, KCalc, and many other applications. Before choosing a code change, I wanted to get a KDE application building and running on my own Fedora machine.\n\nThis is the setup I used. The goal was to understand each step rather than paste commands without knowing what they do.",
+        image: {
+          src: "/blog/kde-builder-fedora.png",
+          alt: "Terminal showing kde-builder compiling KCalc on Fedora",
+          caption: "Building KCalc from source with kde-builder."
+        }
+      },
+      {
+        heading: "Accounts, SSH, and basic tools",
+        content: "I joined KDE’s Matrix rooms to find project discussions and ask for help, then created a KDE Identity account for KDE’s GitLab instance. I generated an SSH key and added its public half to my KDE account; the private key stays on my machine.\n\nI also configured Git with the name and email associated with my account, then installed Git and curl through Fedora’s package manager.",
+        codeBlock: {
+          language: "bash",
+          caption: "SSH key, Git identity, and Fedora basics",
+          code: `ssh-keygen -t ed25519 -C "your-email@example.com"
+cat ~/.ssh/id_ed25519.pub
+ssh -T git@invent.kde.org
+
+git config --global user.name "Your Name"
+git config --global user.email "your-email@example.com"
+
+sudo dnf install git curl`
+        }
+      },
+      {
+        heading: "Installing kde-builder",
+        content: "kde-builder coordinates the many KDE libraries an application depends on, building modules in order. I used uv to install it in an isolated tool environment, then checked that the command was available.",
+        codeBlock: {
+          language: "bash",
+          caption: "Install kde-builder with uv",
+          code: `uv --version
+uv tool install git+https://invent.kde.org/sdk/kde-builder.git
+kde-builder --version`
+        }
+      },
+      {
+        heading: "Configuring the workspace and dependencies",
+        content: "The generated configuration keeps KDE’s source, build, install, and log directories under ~/kde. That means the compiled application and libraries can live in my home directory rather than replacing system files.\n\nkde-builder can also install the distribution packages needed to compile KDE software. On Fedora, this step may request sudo access.",
+        codeBlock: {
+          language: "bash",
+          caption: "Create the workspace and install build dependencies",
+          code: `kde-builder --generate-config
+kde-builder --install-distro-packages`
+        }
+      },
+      {
+        heading: "Building KCalc—and recovering from a dropped connection",
+        content: "I chose KCalc as a first test. kde-builder cloned its source and dependencies, configured them with CMake and Ninja, compiled them, and installed the result into the KDE workspace.\n\nMy first run stopped while cloning kcodecs because the connection to invent.kde.org was reset. The clone log identified it as a network failure. I removed only the incomplete kcodecs source directory and ran the build again; kde-builder reused modules that had already built successfully.",
+        codeBlock: {
+          language: "bash",
+          caption: "Build KCalc and retry the interrupted clone",
+          code: `kde-builder kcalc
+
+cat ~/kde/log/latest/kcodecs/git-clone.log
+rm -rf ~/kde/src/kcodecs
+kde-builder kcalc`
+        }
+      },
+      {
+        heading: "Running the app and taking the next step",
+        content: "Once all dependencies and KCalc were built, kde-builder launched the workspace version with the right environment configured.\n\nFrom there, the contribution loop is straightforward: find an issue, fork the project, create a branch, make a focused change, rebuild, test, and open a Merge Request. Rebuilds generally only recompile what changed.",
+        codeBlock: {
+          language: "bash",
+          caption: "Run KCalc from the KDE workspace",
+          code: `kde-builder --run kcalc`
+        }
+      }
+    ]
+  },
   {
     slug: "how-uber-actually-works-system-design",
     title: "How Uber Actually Works: The Complete System Design Breakdown",
