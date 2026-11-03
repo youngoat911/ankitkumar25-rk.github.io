@@ -15,7 +15,7 @@ export default function Footer() {
             Ankit Kumar<span className="text-[var(--accent)]">.</span>
           </strong>
           <p className="text-[var(--muted)] mt-0.5">
-            Software Engineer · IIT Jodhpur &amp; Udaipurwati, Rajasthan
+            Full-Stack Developer · IIT Jodhpur · India
           </p>
         </div>
 

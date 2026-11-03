@@ -14,7 +14,7 @@ export default function Hero() {
         
         {/* Top Status & Meta Line */}
         <div className="mx-auto max-w-[1440px] px-4 sm:px-8 pt-8 pb-4 flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-[var(--line)] text-xs font-mono">
-          <p className="text-[var(--muted)]">Software Engineer / IIT Jodhpur · Udaipurwati</p>
+          <p className="text-[var(--muted)]">Full-Stack Developer / IIT Jodhpur · India</p>
           <div className="flex items-center gap-2 text-[var(--ink)] font-semibold">
             <span className="relative flex h-2 w-2">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
@@ -44,12 +44,12 @@ export default function Hero() {
               <div className="grid grid-cols-1 md:grid-cols-12 gap-8 mt-10 md:mt-14 max-w-3xl">
                 <div className="md:col-span-6">
                   <p className="text-xl sm:text-2xl font-bold tracking-tight text-[var(--ink)] leading-snug">
-                    I build software the way we farm — with patience, discipline &amp; zero shortcuts.
+                    Full-stack developer building practical products across AI, web platforms, developer tools, IoT, and Linux systems.
                   </p>
                 </div>
                 <div className="md:col-span-6 space-y-4">
                   <p className="text-sm text-[var(--muted)] leading-relaxed">
-                    From rural Rajasthan to IIT Jodhpur, I build high-reliability systems, production e-commerce, and creative web experiences across the full stack.
+                    I&apos;m an IIT Jodhpur student working across the full product lifecycle—from interfaces and APIs to databases, integrations, performance, and deployment.
                   </p>
                   
                   {/* Action Buttons */}
@@ -134,12 +134,12 @@ export default function Hero() {
             
             <div className="p-6 sm:p-8">
               <span className="block text-[11px] font-mono uppercase tracking-wider text-[var(--muted)] font-bold">
-                Experience
+                Education
               </span>
               <p className="mt-2 text-2xl sm:text-3xl font-black tracking-tight text-[var(--ink)]">
-                2+ <span className="text-xs font-mono font-normal text-[var(--muted)]">years coding</span>
+                IIT Jodhpur
               </p>
-              <span className="block mt-1 text-xs text-[var(--muted)]">IIT Jodhpur B.Tech</span>
+              <span className="block mt-1 text-xs text-[var(--muted)]">B.Tech student · India</span>
             </div>
 
             <div className="p-6 sm:p-8">
@@ -157,19 +157,19 @@ export default function Hero() {
                 Open Source
               </span>
               <p className="mt-2 text-2xl sm:text-3xl font-black tracking-tight text-[var(--ink)]">
-                CogniOS <span className="text-xs font-mono font-normal text-[var(--muted)]">daemon</span>
+                6 <span className="text-xs font-mono font-normal text-[var(--muted)]">merged PRs</span>
               </p>
-              <span className="block mt-1 text-xs text-[var(--muted)]">DevLup Labs Summer of Code</span>
+              <span className="block mt-1 text-xs text-[var(--muted)]">Across four open-source projects</span>
             </div>
 
             <div className="p-6 sm:p-8">
               <span className="block text-[11px] font-mono uppercase tracking-wider text-[var(--muted)] font-bold">
-                Telemetry
+                Focus
               </span>
               <p className="mt-2 text-2xl sm:text-3xl font-black tracking-tight text-[var(--ink)]">
-                4 <span className="text-xs font-mono font-normal text-[var(--muted)]">metric layers</span>
+                AI · Web · Systems
               </p>
-              <span className="block mt-1 text-xs text-[var(--muted)]">SQLite circular BlackBox</span>
+              <span className="block mt-1 text-xs text-[var(--muted)]">Developer tools · IoT · Linux</span>
             </div>
 
           </div>

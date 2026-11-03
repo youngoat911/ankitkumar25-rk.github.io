@@ -7,30 +7,30 @@ export default function Expertise() {
   const capabilities = [
     {
       num: "01",
-      title: "Product engineering",
-      description: "Full-stack web applications shaped around practical workflows, fast response times, and resilient client architecture.",
-      proofText: "Proof / PhotowalaGift",
+      title: "Full-stack products",
+      description: "End-to-end web platforms: interface design, modular APIs, relational and document databases, authentication, and deployment.",
+      proofText: "Proof / Inventory & BrinX",
       proofHref: "#work",
     },
     {
       num: "02",
-      title: "System telemetry & daemons",
-      description: "Low-overhead Linux telemetry collection, circular WAL buffers, and real-time anomaly detection pipelines.",
-      proofText: "Proof / CogniOS",
+      title: "AI, data & IoT",
+      description: "Practical AI integrations, OCR pipelines, sensor-connected applications, real-time telemetry, and anomaly detection.",
+      proofText: "Proof / FreshScan & CogniOS",
       proofHref: "#work",
     },
     {
       num: "03",
-      title: "Backend & auth security",
-      description: "PASETO v4 token security, PostgreSQL schemas, payment gateway integrations, and reliable REST endpoints.",
-      proofText: "Proof / PhotowalaGift & YT-Clone",
+      title: "Developer tools",
+      description: "VS Code extensions, PDF text extraction and OCR, workspace workflows, testing, and maintainable documentation.",
+      proofText: "Proof / Texter",
       proofHref: "#work",
     },
     {
       num: "04",
-      title: "Creative 3D & WebGL",
-      description: "Interactive Three.js visualizers, RAF-decoupled scroll physics, and buttery 60FPS fluid canvas performance.",
-      proofText: "Proof / WhatChat & 5911 Tractor",
+      title: "Real-time & interactive web",
+      description: "Socket.IO applications, educational simulations, responsive interfaces, and interactive Three.js experiences.",
+      proofText: "Proof / WhatChat & Virtual Lab",
       proofHref: "#top",
     },
   ];
@@ -89,7 +89,7 @@ export default function Expertise() {
             Working set:
           </span>
           <span className="text-[var(--muted)]">
-            TypeScript / JavaScript / Python / React 19 / Next.js / Node.js / Express / PostgreSQL / SQLite / Three.js / Tailwind CSS / Docker / Linux
+            JavaScript / TypeScript / Python / C / SQL / React / Next.js / Vite / Node.js / Express / PostgreSQL / MongoDB / SQLite / Prisma / Socket.IO / Gemini / Groq / OCR / Arduino / Docker / Linux / Three.js
           </span>
         </div>
 
@@ -97,4 +97,3 @@ export default function Expertise() {
     </section>
   );
 }
-

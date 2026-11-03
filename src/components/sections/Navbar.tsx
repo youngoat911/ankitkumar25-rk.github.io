@@ -58,7 +58,7 @@ export default function Navbar() {
           </a>
 
           <span className="hidden md:inline-block text-xs font-mono font-medium text-[var(--muted)] tracking-wider uppercase border-l border-[var(--line)] pl-6">
-            Full-Stack Developer · IIT Jodhpur
+            Full-Stack Developer · AI · Web · Systems
           </span>
         </div>
 
