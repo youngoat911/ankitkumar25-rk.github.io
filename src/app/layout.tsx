@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://youngoat.dev"),
-  title: "Ankit Kumar | Full-Stack Developer",
+  title: "Ankit Kumar",
   description: "Ankit Kumar is an IIT Jodhpur student building practical products across AI, web platforms, developer tools, IoT, and Linux systems.",
   keywords: [
     "Ankit Kumar",
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
   authors: [{ name: "Ankit Kumar", url: "https://youngoat.dev" }],
   creator: "Ankit Kumar",
   openGraph: {
-    title: "Ankit Kumar | Full-Stack Developer",
+    title: "Ankit Kumar",
     description: "IIT Jodhpur student building practical products across AI, web platforms, developer tools, IoT, and Linux systems.",
     url: "https://youngoat.dev",
     siteName: "Ankit Kumar Portfolio",
@@ -39,7 +39,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Ankit Kumar | Full-Stack Developer",
+    title: "Ankit Kumar",
     description: "IIT Jodhpur student building practical products across AI, web platforms, developer tools, IoT, and Linux systems.",
   },
 };

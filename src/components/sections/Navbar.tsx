@@ -2,6 +2,7 @@
 
 import React, { useState, useCallback, useSyncExternalStore } from "react";
 import { Sun, Moon, ArrowUpRight, Menu, X } from "lucide-react";
+import Link from "next/link";
 
 function subscribe(callback: () => void) {
   if (typeof window === "undefined") return () => {};
@@ -37,8 +38,8 @@ export default function Navbar() {
   const navLinks = [
     { name: "Work", href: "#work" },
     { name: "Expertise", href: "#expertise" },
-    { name: "Background", href: "#background" },
-    { name: "Writing", href: "#writing" },
+    { name: "Experience", href: "#background" },
+    { name: "Blogs", href: "#writing" },
   ];
 
   return (
@@ -47,15 +48,15 @@ export default function Navbar() {
         
         {/* Left: Brand Monogram & Sub-title */}
         <div className="flex items-center gap-6">
-          <a
-            href="#top"
+          <Link
+            href="/"
             className="flex items-center text-lg font-black tracking-tighter hover:opacity-80 transition-opacity"
             aria-label="Ankit Kumar - Back to top"
           >
             <span>AK</span>
             <span className="text-[var(--accent)] px-0.5">/</span>
             <span>K</span>
-          </a>
+          </Link>
 
           <span className="hidden md:inline-block text-xs font-mono font-medium text-[var(--muted)] tracking-wider uppercase border-l border-[var(--line)] pl-6">
             Full-Stack Developer · AI · Web · Systems
