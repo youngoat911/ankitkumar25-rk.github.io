@@ -45,7 +45,7 @@ export const blogPosts: BlogPost[] = [
     views: "Originally published on Medium",
     sourceUrl: "https://medium.com/@ankitgia336/how-i-set-up-a-kde-development-environment-on-fedora-and-built-my-first-kde-app-from-source-8219cb04daa3",
     featured: true,
-    tags: ["KDE", "Fedora", "Linux", "Open Source", "kde-builder"],
+    tags: ["KDE", "Fedora", "Linux", "Open-Source", "kde-builder"],
     sections: [
       {
         heading: "Starting with a build, not a bug fix",
@@ -268,6 +268,5 @@ for cell_id in search_cells:
 export const blogCategories: string[] = [
   "All",
   "System Design",
-  "Distributed Systems",
   "Engineering"
 ];

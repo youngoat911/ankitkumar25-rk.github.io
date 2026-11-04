@@ -11,7 +11,6 @@ const projects = [
     description: "A comprehensive e-commerce platform for premium gifts, trophies, and mementos, with a customer storefront, admin dashboard, and Express API.",
     highlights: ["Product browsing, custom orders, and secure checkout", "Dedicated customer storefront and admin dashboard", "Production site: photowalagift.online"],
     tech: "React · Node.js · Express · PostgreSQL",
-    repo: "https://github.com/youngoat911/Photowalagift",
     live: "https://photowalagift.online",
   },
   {
@@ -95,7 +94,7 @@ export default function Projects() {
         <div className="mx-auto max-w-[1440px] px-4 sm:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-end mb-12 pb-8 border-b border-[var(--line)]">
             <div className="lg:col-span-8">
-              <p className="eyebrow mb-2">02 / Project log</p>
+              <p className="eyebrow mb-2">02 / Work</p>
               <h2 className="display-title">
                 Selected projects<span className="dot">.</span>
               </h2>
@@ -132,14 +131,16 @@ export default function Projects() {
                   {project.tech}
                 </p>
                 <div className="flex flex-wrap gap-4 mt-5 text-xs font-mono font-bold">
-                  <a
-                    href={project.repo}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 text-[var(--ink)] hover:text-amber-500 transition-colors"
-                  >
-                    Repository <ArrowUpRight className="h-3.5 w-3.5" />
-                  </a>
+                  {project.repo && (
+                    <a
+                      href={project.repo}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1.5 text-[var(--ink)] hover:text-amber-500 transition-colors"
+                    >
+                      Repository <ArrowUpRight className="h-3.5 w-3.5" />
+                    </a>
+                  )}
                   {project.live && (
                     <a
                       href={project.live}
