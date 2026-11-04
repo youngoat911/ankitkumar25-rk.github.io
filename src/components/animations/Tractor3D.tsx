@@ -17,18 +17,26 @@ export default function Tractor3D({
 }: Tractor3DProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [headlightsOn, setHeadlightsOn] = useState(true);
-  const headlightsRef = useRef<{ left: THREE.SpotLight; right: THREE.SpotLight } | null>(null);
+  const headlightsOnRef = useRef(true);
+  const headlightsRef = useRef<{
+    left: THREE.SpotLight;
+    right: THREE.SpotLight;
+    material: THREE.MeshStandardMaterial;
+  } | null>(null);
   const resetCameraRef = useRef<(() => void) | null>(null);
 
   const toggleHeadlights = () => {
-    setHeadlightsOn((prev) => {
-      const next = !prev;
-      if (headlightsRef.current) {
-        headlightsRef.current.left.intensity = next ? 5.0 : 0;
-        headlightsRef.current.right.intensity = next ? 5.0 : 0;
-      }
-      return next;
-    });
+    const next = !headlightsOnRef.current;
+    headlightsOnRef.current = next;
+    setHeadlightsOn(next);
+
+    if (headlightsRef.current) {
+      const { left, right, material } = headlightsRef.current;
+      left.intensity = next ? 5.0 : 0;
+      right.intensity = next ? 5.0 : 0;
+      material.color.set(next ? 0xffffff : 0x333333);
+      material.emissiveIntensity = next ? 0.8 : 0;
+    }
   };
 
   useEffect(() => {
@@ -91,8 +99,9 @@ export default function Tractor3D({
       roughness: 0.1,
       metalness: 0.1,
       emissive: 0xfef08a,
-      emissiveIntensity: 0.8,
+      emissiveIntensity: headlightsOnRef.current ? 0.8 : 0,
     });
+    if (!headlightsOnRef.current) mGlass.color.set(0x333333);
 
     // ── TRACTOR ROOT GROUP ───────────────────────────────────────────────────
     const tractorGroup = new THREE.Group();
@@ -126,7 +135,7 @@ export default function Tractor3D({
     addMesh(headlightGeo, mGlass, 2.0, 1.6, -0.42);
 
     // Dynamic Spotlights projecting forward
-    const spotLeft = new THREE.SpotLight(0xfffbeb, 5.0, 18, Math.PI / 5, 0.35, 1);
+    const spotLeft = new THREE.SpotLight(0xfffbeb, headlightsOnRef.current ? 5.0 : 0, 18, Math.PI / 5, 0.35, 1);
     spotLeft.position.set(2.1, 1.6, 0.42);
     const targetLeft = new THREE.Object3D();
     targetLeft.position.set(10, 0, 0.42);
@@ -134,7 +143,7 @@ export default function Tractor3D({
     spotLeft.target = targetLeft;
     tractorGroup.add(spotLeft);
 
-    const spotRight = new THREE.SpotLight(0xfffbeb, 5.0, 18, Math.PI / 5, 0.35, 1);
+    const spotRight = new THREE.SpotLight(0xfffbeb, headlightsOnRef.current ? 5.0 : 0, 18, Math.PI / 5, 0.35, 1);
     spotRight.position.set(2.1, 1.6, -0.42);
     const targetRight = new THREE.Object3D();
     targetRight.position.set(10, 0, -0.42);
@@ -142,7 +151,7 @@ export default function Tractor3D({
     spotRight.target = targetRight;
     tractorGroup.add(spotRight);
 
-    headlightsRef.current = { left: spotLeft, right: spotRight };
+    headlightsRef.current = { left: spotLeft, right: spotRight, material: mGlass };
 
     // 4. Operator Cabin & Protective Canopy
     const cabin = new THREE.Group();
@@ -419,6 +428,7 @@ export default function Tractor3D({
 
       smokeGeo.dispose();
       particles.forEach((pt) => (pt.mesh.material as THREE.Material).dispose());
+      headlightsRef.current = null;
       if (container.contains(renderer.domElement)) {
         container.removeChild(renderer.domElement);
       }
@@ -435,6 +445,7 @@ export default function Tractor3D({
       <div className="absolute top-4 right-4 z-20 flex items-center gap-2">
         <button
           onClick={toggleHeadlights}
+          aria-pressed={headlightsOn}
           className={`flex items-center gap-1.5 px-3 py-1.5 rounded text-xs font-mono font-bold tracking-wider uppercase border transition-all cursor-pointer ${
             headlightsOn
               ? "bg-amber-500/20 text-amber-400 border-amber-500/40 shadow-[0_0_15px_rgba(245,158,11,0.2)]"
