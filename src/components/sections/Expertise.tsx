@@ -42,7 +42,7 @@ export default function Expertise() {
         {/* Section Intro */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-end mb-16 pb-8 border-b border-[var(--line)]">
           <div className="lg:col-span-8">
-            <p className="eyebrow mb-2">03 / Skill set</p>
+            <p className="eyebrow mb-2">03 / Expertise</p>
             <h2 className="display-title">
               How I can help<span className="dot">.</span>
             </h2>
@@ -85,9 +85,10 @@ export default function Expertise() {
 
         {/* Working Set Stack Line (Yogi's Exact Style) */}
         <div className="mt-8 p-6 border border-[var(--line)] bg-[var(--tab-bg)] text-xs font-mono">
-          <span className="font-bold uppercase tracking-wider text-[var(--ink)] mr-3">
+          <span className="font-bold uppercase tracking-wider text-[var(--ink)]">
             Working set:
           </span>
+          {" "}
           <span className="text-[var(--muted)]">
             JavaScript / TypeScript / Python / C / SQL / React / Next.js / Vite / Node.js / Express / PostgreSQL / MongoDB / SQLite / Prisma / Socket.IO / Gemini / Groq / OCR / Arduino / Docker / Linux / Three.js
           </span>

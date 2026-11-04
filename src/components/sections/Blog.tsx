@@ -77,14 +77,14 @@ export default function Blog() {
           {/* Section Intro */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-end mb-16 pb-8 border-b border-[var(--line)]">
             <div className="lg:col-span-8">
-              <p className="eyebrow mb-2">05 / Field notes</p>
+              <p className="eyebrow mb-2">05 / Blogs</p>
               <h2 className="display-title">
                 Notes from the work<span className="dot">.</span>
               </h2>
             </div>
             <div className="lg:col-span-4 flex flex-col justify-end items-start lg:items-end">
               <p className="text-sm text-[var(--muted)] leading-relaxed mb-4">
-                Field notes, system architectures, and reflections written from direct engineering practice.
+                Blog posts, system architectures, and reflections from direct engineering practice.
               </p>
               
               {/* Search Box - Only if posts exist */}

@@ -21,16 +21,16 @@ export default function Home() {
         {/* 01 / Player profile */}
         <Hero />
 
-        {/* 02 / Project log */}
+        {/* 02 / Work */}
         <Projects />
 
-        {/* 03 / Skill set */}
+        {/* 03 / Expertise */}
         <Expertise />
 
-        {/* 04 / Background */}
+        {/* 04 / Experience */}
         <Background />
 
-        {/* 05 / Field notes */}
+        {/* 05 / Blogs */}
         <Blog />
 
         {/* 06 / Start a conversation */}

@@ -10,7 +10,7 @@ export default function Background() {
         {/* Section Intro */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-end mb-16 pb-8 border-b border-[var(--line)]">
           <div className="lg:col-span-8">
-            <p className="eyebrow mb-2">04 / Background</p>
+            <p className="eyebrow mb-2">04 / Experience</p>
             <h2 className="display-title">
               Learning &amp; credentials<span className="dot">.</span>
             </h2>
