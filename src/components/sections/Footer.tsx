@@ -20,7 +20,7 @@ export default function Footer() {
         </div>
 
         <p className="text-[var(--muted)] max-w-md">
-          &copy; {new Date().getFullYear()} Ankit Kumar. Handcrafted with Next.js &amp; Tailwind CSS. Built with patience, discipline &amp; zero shortcuts.
+          &copy; {new Date().getFullYear()}{" "}Ankit Kumar. Handcrafted with Next.js &amp; Tailwind CSS. Built with patience, discipline &amp; zero shortcuts.
         </p>
 
         <button
