@@ -75,7 +75,7 @@ export default function TractorModal({ isOpen, onClose }: TractorModalProps) {
               &ldquo;Dil da ni maada, tera Sidhu Moose Wala.&rdquo;
             </p>
             <span className="block text-[9px] font-mono text-amber-400 mt-1 uppercase tracking-widest font-bold">
-              — Udaipurwati &amp; Punjab Roots
+              — Rural Roots
             </span>
           </div>
         </div>

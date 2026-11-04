@@ -108,10 +108,10 @@ export default function Contact() {
                 Location &amp; Academic Base
               </span>
               <p className="text-[var(--ink)] font-bold">
-                Indian Institute of Technology Jodhpur (IIT-J)
+                Indian Institute of Technology Jodhpur
               </p>
               <p className="text-[var(--muted)]">
-                Permanent Roots: Udaipurwati, Jhunjhunu, Rajasthan
+                Based in India
               </p>
             </div>
           </div>

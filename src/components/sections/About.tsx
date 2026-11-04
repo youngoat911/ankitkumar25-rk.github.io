@@ -117,12 +117,12 @@ export default function About() {
           {/* Left Column: Summary */}
           <motion.div variants={itemVariants} className="md:col-span-6 flex flex-col justify-center min-w-0">
             <h3 className="text-2xl font-bold text-white mb-6">
-              From Udaipurwati's Fields to IIT Jodhpur's Labs.
+              From the fields of Rajasthan to the labs at IIT Jodhpur.
             </h3>
             <div className="space-y-6 text-neutral-300 text-sm md:text-base leading-relaxed">
               <p>
-                I grew up in Udaipurwati, a small town in Jhunjhunu, Rajasthan, in a
-                farming family. No CS background at home, no one to tell me what to
+                I grew up in rural Rajasthan, in a farming family. No CS background at
+                home, no one to tell me what to
                 learn first — I picked up coding the same way I picked up most things
                 growing up: figuring it out myself, one mistake at a time.
               </p>
